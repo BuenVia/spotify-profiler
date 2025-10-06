@@ -1,64 +1,53 @@
-import { useState } from "react";
 import "./App.css";
-import axios from "axios";
-import ArtistsList from "./Components/ArtistsList";
-import ArtistDetails from "./Components/ArtistDetails";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./Pages/Home";
+import ArtistDetails from "./Pages/ArtistDetails";
+import ArtistsList from "./Pages/ArtistList";
+import AlbumDetails from "./Pages/AlbumDetails";
+import TrackDetails from "./Pages/TrackDetails";
+import { useState } from "react";
+
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState(null);
-  const [artist, setArtist] = useState(null);
-  const [view, setView] = useState("search"); // "search" | "results" | "artist"
 
   const handleChange = (e) => setSearchTerm(e.target.value);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.get(
-        `http://127.0.0.1:8000/search?artist=${searchTerm}`
-      );
-      setResults(res.data);
-      setView("results");
-    } catch (err) {
-      console.error("Search failed:", err);
-    }
-  };
-
-  const handleSelectArtist = (artist) => {
-    setArtist(artist);
-    setView("artist");
-  };
-
   return (
+    <BrowserRouter>
     <div className="App">
 
-      <nav className="nav">
-        x
-      </nav>
-
-      {view === "search" && (
-        <div>
-          <h1>Search for an artist</h1>
-          <form onSubmit={handleSubmit}>
-            <input
+      <nav className="navbar nav__bg" data-bs-theme="dark">
+        <div className="container-fluid">
+          <a className="navbar-brand nav__logo" href="/">Spotify Profiler</a>
+          <span className="d-flex">
+            <input 
+              className="form-control me-2" 
               type="text"
               name="artist"
               value={searchTerm}
               onChange={handleChange}
               placeholder="Artist name..."
-            />
-            <button type="submit">Search</button>
-          </form>
+              aria-label="Search"
+              />
+            <a href={"/search?search_term=" + searchTerm} className="btn btn-outline-success">Search</a>
+          </span>
         </div>
-      )}
+      </nav>
 
-      {view === "results" && (
-        <ArtistsList results={results} onSelectArtist={handleSelectArtist} />
-      )}
+      
 
-      {view === "artist" && <ArtistDetails artist={artist} />}
+    <div className="main__container">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<ArtistsList />} />
+        <Route path="/artist/:artist" element={<ArtistDetails />} />
+        <Route path="/album/:album" element={<AlbumDetails />} />
+        <Route path="/track/:trackId" element={<TrackDetails />}></Route>
+      </Routes>
     </div>
+    </div>
+    </BrowserRouter>
   );
 }
 
