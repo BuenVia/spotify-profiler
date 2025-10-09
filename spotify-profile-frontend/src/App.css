@@ -1,3 +1,7 @@
+:root {
+  --txt-clr: rgb(30, 215, 96)
+}
+
 .App {
   min-height: 100vh;
   text-align: center;
@@ -10,28 +14,74 @@
 }
 
 .nav__logo {
-  color: rgb(25, 207, 25);
+  color: var(--txt-clr);
   font-weight: 700;
   font-size: 24px;
 }
 
 .main__container {
-  /* background-color: #111; */
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.search__container {
+  margin: auto;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn__search {
+  background-color: var(--txt-clr);
+  margin: 1em 0;
+}
+
+.btn__search:hover {
+  transition: 0.5s;
+  background-color: green;
 }
 
 .results__container {
   margin: auto;
   max-width: 1200px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1em;
 }
 
+.other__results__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  align-items: center;
+}
+
+.result__card {
+  width: 300px;
+  height: 250px;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: #ddd;
+}
+
+.result__card:hover {
+  transition: 0.5s;
+  background-color  : rgba(255, 255, 255, 0.1);
+}
+
 .artist__img {
-  height: 50px;
-  width: 50px;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
 }
 
 .table__link {

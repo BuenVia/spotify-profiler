@@ -12,13 +12,13 @@ const ArtistsList = () => {
         const getSearch = async () => {
             try {
                 const res = await apiCall("/search", `?artist=${searchParams.get("search_term")}`);
-                    setResults(res.data);                    
-                } catch (err) {
-                    console.error("Search failed:", err);
-                }
-            };        
-            getSearch()
-        }, [searchParams])
+                setResults(res.data);                    
+            } catch (err) {
+                console.error("Search failed:", err);
+            }
+        };        
+        getSearch()
+    }, [searchParams])
 
 
   if (!results?.artists?.items?.length) {
@@ -29,26 +29,43 @@ const ArtistsList = () => {
     <div className="results__container">
         <h2>Artists</h2>
 
-        <table className="table table-sm table-dark table-striped">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Artist Name</th>
-                    <th>Genre</th>
-                    <th>Followers</th>
-                </tr>
-            </thead>
-            <tbody className="table-group-divider" style={{textAlign: "left"}}>
-                {results.artists.items.map((artist) => (
-                    <tr>
-                        <td><a href={"/artist/" + artist.id}><img src={artist.images?.[0]?.url} alt={artist.name} className="artist__img" /></a></td>
-                        <td style={{cursor: "pointer"}}><a href={"/artist/" + artist.id} className="table__link  align-middle">{artist.name}</a></td>
-                        <td>{artist.genres.map(g => g).join(", ")}</td>
-                        <td>{artist.followers.total.toLocaleString()}</td>
-                    </tr>
-                ))}      
-            </tbody>
-        </table>
+        <h3>Top Result</h3>
+        <a href={"/artist/" + results.artists.items[0]?.id} className="card text-bg-dark border-0 shadow-sm rounded-3 overflow-hidden" style={{maxWidth: "700px", textDecoration: "none"}}>
+          <div className="row g-0 align-items-center">
+            <div className="col-md-4">
+              <img src={results.artists.items[0]?.images?.[0]?.url} className="img-fluid rounded-start" alt="Band Image" />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h1 className="card-title fw-bold mb-1">{results.artists.items[0]?.name}</h1>
+                <p className="mb-2">{results.artists.items[0]?.genres.map(g => g).join(", ")}</p>
+                <p className="mb-0"><strong>{results.artists.items[0]?.followers.total}</strong> followers</p>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <div className="mt-5">
+            <h2>Other Results</h2>
+            <div className="other__results__container">
+                {results.artists.items.map((artist, index) => (
+                    index !== 0? 
+                    <a href={"/artist/" + artist.id} className="card result__card" style={{maxWidth: "300px", textDecoration: "none"}}>
+                        <div className="row g-0 align-items-center">
+                            <div className="">
+                                <img src={artist.images?.[0]?.url} className="artist__img" alt="Band Image" />
+                            </div>
+                            <div className="">
+                                <div className="card-body">
+                                    <p className="fw-bold mb-1">{artist?.name}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a> 
+                    : null
+                ))}
+            </div>
+        </div>
 
     </div>
   );

@@ -17,7 +17,7 @@ const AlbumDetails = () => {
                 setLoading(true);
                 const res_album = await apiCall("/album", `?album_id=${album}`)
                 setAlbumData(res_album.data)
-                setTracks(res_album.data.tracks || null);
+                setTracks(res_album.data.tracks || null);               
             } catch (err) {
                 console.error("Error fetching album tracks:", err);
                 setError("Failed to load tracks.");
@@ -57,15 +57,17 @@ const AlbumDetails = () => {
             <table className="table table-dark table-striped-columns">
                 <thead>
                     <tr>
-                        <th>Track No.</th>
-                        <th>Track Name</th>
-                        <th>Artist(s)</th>
-                        <th>Duration</th>
+                      <th>Disc No.</th>
+                      <th>Track No.</th>
+                      <th>Track Name</th>
+                      <th>Artist(s)</th>
+                      <th>Duration</th>
                     </tr>
                 </thead>
                 <tbody>
                     {tracks.items.map((track) => (
                         <tr>
+                          <td>{track.disc_number}</td>
                             <td>{track.track_number}</td>
                             <td><a href={`/track/${track.id}?artist_id=${searchParams.get("artist_id")}&artist_name=${searchParams.get("artist_name")}`} className="table__link">{track.name}</a></td>
                             <td>{track.artists.map(a => a.name)}</td>

@@ -6,6 +6,7 @@ import ArtistsList from "./Pages/ArtistList";
 import AlbumDetails from "./Pages/AlbumDetails";
 import TrackDetails from "./Pages/TrackDetails";
 import { useState } from "react";
+import UserDetails from "./Pages/UserDetails";
 
 
 function App() {
@@ -37,15 +38,16 @@ function App() {
 
       
 
-    <div className="main__container">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<ArtistsList />} />
-        <Route path="/artist/:artist" element={<ArtistDetails />} />
-        <Route path="/album/:album" element={<AlbumDetails />} />
-        <Route path="/track/:trackId" element={<TrackDetails />}></Route>
-      </Routes>
-    </div>
+      <div className="main__container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<ArtistsList />} />
+          <Route path="/artist/:artist" element={<ArtistDetails />} />
+          <Route path="/album/:album" element={<AlbumDetails />} />
+          <Route path="/track/:trackId" element={<TrackDetails />}></Route>
+          <Route path="/user" element={<UserDetails />} />
+        </Routes>
+      </div>
     </div>
     </BrowserRouter>
   );
