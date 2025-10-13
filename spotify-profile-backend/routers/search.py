@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import RedirectResponse
-import httpx, datetime, base64, os
+import httpx, datetime, base64, os, json
 from dotenv import load_dotenv
 from src.format import Formatter
 
@@ -38,13 +38,12 @@ async def get_token():
 
 async def call_spotify_api(endpoint: str):
     async with httpx.AsyncClient() as client:
-        items_list = []
         token = await get_token()
         url = f"{BASE_URL}{endpoint}"
         headers = {
             "Authorization": f"Bearer {token["access_token"]}"
         }
-        response = await client.get(url=url, headers=headers)
+        response = await client.get(url=url, headers=headers, timeout=20.0)
         if response.status_code != 200:
             raise HTTPException(status_code=response.status_code, detail=response.json())
         
@@ -121,13 +120,39 @@ async def artist_data(artist_id: str = ""):
     albums_result = await albums(artist_id)
     top_tracks = await artist_top_tracks(artist_id)
 
+    # with open("artist-result.json", "w", encoding="utf-8") as f:
+    #     json.dump(artist_result, f, ensure_ascii=True, indent=4)
+
+    # with open("albums-result.json", "w", encoding="utf-8") as f:
+    #     json.dump(albums_result, f, ensure_ascii=True, indent=4)
+
+    # with open("top_tracks-result.json", "w", encoding="utf-8") as f:
+    #     json.dump(top_tracks, f, ensure_ascii=True, indent=4)
+
+    # artist_result = None
+    # albums_result = None
+    # top_tracks = None
+
+    # with open("artist-result.json", "r") as f:
+    #     artist_result = json.load(f)
+
+    # with open("albums-result.json", "r") as f:
+    #     albums_result = json.load(f)
+
+    # with open("top_tracks-result.json", "r") as f:
+    #     top_tracks = json.load(f)
+
     # Total number of albums
+    albums_list = []
     total_albums = 0
+    singles_list = []
     total_singles = 0
     for album in albums_result:
         if album["album_type"] == "album":
+            albums_list.append(album)
             total_albums += 1
         if album["album_type"] == "single":
+            singles_list.append(album)
             total_singles += 1
 
     # Conver and format followers    
@@ -141,7 +166,15 @@ async def artist_data(artist_id: str = ""):
     # Format genre
     artist_result["genres"] = [item.capitalize() for item in artist_result["genres"]]
 
-    return { "artist": artist_result, "albums": albums_result, "top_tracks": top_tracks, "info": info }
+    data = { 
+        "artist": artist_result, 
+        "albums_list": albums_list, 
+        "singles_list": singles_list, 
+        "top_tracks": top_tracks, 
+        "info": info 
+    }
+
+    return data
     
 @router.get("/top-tracks")
 async def artist_top_tracks(artist_id: str = ""):
