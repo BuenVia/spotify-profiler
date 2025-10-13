@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 :root {
   --txt-clr: rgb(30, 215, 96)
 }
@@ -7,6 +10,9 @@
   text-align: center;
   background-color: #0a0a0a;
   color: #eee;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 .nav__bg {
@@ -20,7 +26,6 @@
 }
 
 .main__container {
-  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,24 +33,68 @@
   gap: 3em;
 }
 
+/* SEARCH PAGE */
 .search__container {
+  padding: 2em;
   margin: auto;
-  max-width: 400px;
+  margin-top: 3em;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.home__title {
+  color: var(--txt-clr);
+}
+
+.search__box {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.search__box input {
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 1em;
+  /* background-color: rgb(37, 37, 37); */
+  background-color: transparent;
+  color: var(--txt-clr);
+  border: none;
+  border-bottom: 1px solid var(--txt-clr);
+  /* border-radius: 10px; */
+  outline: none;
+  text-align: center;
+}
+
+.learn__link {
+  color: #ddd;
+  cursor: pointer;
+}
+.learn__link:hover {
+  transition: .5s;
+  color: #fff;
+}
+
 .btn__search {
   background-color: var(--txt-clr);
   margin: 1em 0;
+  width: 200px;
 }
 
 .btn__search:hover {
   transition: 0.5s;
-  background-color: green;
+  width: 210px;
+  background-color: var(--txt-clr);
+  color: #222;
 }
+
+/* RESULTS PAGE */
 
 .results__container {
   margin: auto;
@@ -84,25 +133,43 @@
   border-radius: 50%;
 }
 
-.table__link {
-  text-decoration: none;
-  color: #ddd;
-  cursor: pointer;
-  font-weight: 800;
-}
-.table__link:hover {
-  color: #fff;
-}
-
+/* ARTIST PAGE */
 .artist__container {
   margin: auto;
-  max-width: 1200px;
-  display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 1em;
 }
+
+.album__list {
+  background-color: #1a1a1a96;
+  color: #fff;
+}
+
+.album__list__item {
+  background-color: transparent;
+  color: #ccc;
+    text-decoration: none;
+}
+
+.album__name {
+  max-width: 350px;
+}
+
+.top__track__table {
+  background-color: transparent;
+}
+
+.top__track__row {
+  margin-bottom: 3em;
+}
+.top__track__table td a {
+  color: #ddd;
+}
+
+/* ALBUM PAGE */
+
 
 .artist__header {
   font-size: 24px;
@@ -128,4 +195,59 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/* MISC */
+
+.table__link {
+  text-decoration: none;
+  color: #ddd;
+  cursor: pointer;
+  font-weight: 800;
+}
+.table__link:hover {
+  color: #fff;
+}
+
+/* ABOUT */
+/* About.css */
+
+/* Overall background and font */
+.about-page {
+  font-family: "Inter", sans-serif;
+  color: #c2c2c2;
+}
+
+/* Card styling for a modern feel */
+.card {
+  border-radius: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+/* Typography tweaks */
+.display-4 {
+  color: var(--txt-clr);
+}
+
+.lead {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+.tech__card {
+  background-color: #1a1a1a96;
+  color: #ddd;
+}
+
+.tech__title {
+  color: var(--txt-clr);
 }

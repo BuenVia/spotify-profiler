@@ -7,6 +7,7 @@ import AlbumDetails from "./Pages/AlbumDetails";
 import TrackDetails from "./Pages/TrackDetails";
 import { useState } from "react";
 import UserDetails from "./Pages/UserDetails";
+import About from "./Pages/About";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
 
       <nav className="navbar nav__bg" data-bs-theme="dark">
         <div className="container-fluid">
-          <a className="navbar-brand nav__logo" href="/">Spotify Profiler</a>
+          <a className="navbar-brand nav__logo" href="/">Spotify Profiler <img src="/assets/spotify_logo.svg" alt="logo" style={{ width: "30px"}} /></a>
           <span className="d-flex">
             <input 
               className="form-control me-2" 
@@ -41,6 +42,7 @@ function App() {
       <div className="main__container">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/search" element={<ArtistsList />} />
           <Route path="/artist/:artist" element={<ArtistDetails />} />
           <Route path="/album/:album" element={<AlbumDetails />} />

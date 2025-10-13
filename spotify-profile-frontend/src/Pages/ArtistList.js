@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import apiCall from "../api";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 const ArtistsList = () => {
 
@@ -19,10 +20,10 @@ const ArtistsList = () => {
         };        
         getSearch()
     }, [searchParams])
-
+    
 
   if (!results?.artists?.items?.length) {
-    return <div className="results__container">Searching...</div>;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -33,7 +34,7 @@ const ArtistsList = () => {
         <a href={"/artist/" + results.artists.items[0]?.id} className="card text-bg-dark border-0 shadow-sm rounded-3 overflow-hidden" style={{maxWidth: "700px", textDecoration: "none"}}>
           <div className="row g-0 align-items-center">
             <div className="col-md-4">
-              <img src={results.artists.items[0]?.images?.[0]?.url} className="img-fluid rounded-start" alt="Band Image" />
+              <img src={results.artists.items[0]?.images?.[0]?.url} className="img-fluid rounded-start" alt="Band" />
             </div>
             <div className="col-md-8">
               <div className="card-body">
@@ -48,12 +49,16 @@ const ArtistsList = () => {
         <div className="mt-5">
             <h2>Other Results</h2>
             <div className="other__results__container">
-                {results.artists.items.map((artist, index) => (
+                {results.artists.items.length <= 1 ? "No other results found" : results.artists.items.map((artist, index) => (
                     index !== 0? 
-                    <a href={"/artist/" + artist.id} className="card result__card" style={{maxWidth: "300px", textDecoration: "none"}}>
+                    <a key={index} href={"/artist/" + artist.id} className="card result__card" style={{maxWidth: "300px", textDecoration: "none"}}>
                         <div className="row g-0 align-items-center">
                             <div className="">
-                                <img src={artist.images?.[0]?.url} className="artist__img" alt="Band Image" />
+                              {artist.images.length === 0 ? 
+                              <img src="/assets/placeholder.png" className="artist__img" alt="Band" /> 
+                              :
+                              <img src={artist.images?.[0]?.url} className="artist__img" alt="Band" />
+                              }
                             </div>
                             <div className="">
                                 <div className="card-body">

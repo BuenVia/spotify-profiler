@@ -6,22 +6,27 @@ const Home = () => {
       const handleChange = (e) => setSearchTerm(e.target.value);
     
     return ( 
-    <div className="main__container">
-        <h3>Welcome to The Spotify Profiler</h3>
-        <p>Search for data on your favourite artists.</p>
+    <div className="search__container">
+      <h2 className="mb-4">Welcome to <span className="home__title">Spotify Profiler</span></h2>
+      <p>Search for data on your favourite artists.</p>
 
-        <div className="search__container d-flex">
-            <input 
-              className="form-control me-2" 
-              type="text"
-              name="artist"
-              value={searchTerm}
-              onChange={handleChange}
-              placeholder="Artist name..."
-              aria-label="Search"
-              />
-            <a href={"/search?search_term=" + searchTerm} className="btn btn__search">Search</a>
-          </div>
+      <div>
+        <a href="/about" className="learn__link">Learn more</a>
+      </div>
+
+      <div className="search__box d-flex mt-3">
+        <input 
+          className="me-2" 
+          type="text"
+          name="artist"
+          value={searchTerm}
+          onChange={handleChange}
+          placeholder="Artist name..."
+          aria-label="Search"
+          autoFocus
+          />
+        <a href={"/search?search_term=" + searchTerm} className="btn btn__search">Search</a>
+      </div>
 
     </div>
     )
