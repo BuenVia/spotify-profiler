@@ -16,7 +16,7 @@ const Home = () => {
 
       <div className="search__box d-flex mt-3">
         <input 
-          className="me-2" 
+          className="me-2 mb-4" 
           type="text"
           name="artist"
           value={searchTerm}
@@ -25,7 +25,7 @@ const Home = () => {
           aria-label="Search"
           autoFocus
           />
-        <a href={"/search?search_term=" + searchTerm} className="btn btn__search">Search</a>
+        <a href={"/search?search_term=" + searchTerm} className="btn__search">Search</a>
       </div>
 
     </div>

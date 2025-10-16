@@ -82,9 +82,12 @@
 }
 
 .btn__search {
+  width: 150px;
+  padding: .5em;
   background-color: var(--txt-clr);
-  margin: 1em 0;
-  width: 200px;
+  color: #222;
+  text-decoration: none;
+  border-radius: 10px;
 }
 
 .btn__search:hover {

@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend:
+    build: 
+      context: ./spotify-profile-backend
+      dockerfile: Dockerfile
+    container_name: spotify-backend
+    ports:
+      - "8000:8000"
+    networks:
+      - spotify-net
+
+  frontend:
+    build: 
+      context: ./spotify-profile-frontend
+      dockerfile: Dockerfile
+    container_name: spotify-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - spotify-net
+
+networks:
+  spotify-net:
+    driver: bridge
