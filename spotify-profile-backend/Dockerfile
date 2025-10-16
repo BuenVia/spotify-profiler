@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
     
 # ---- 5. Expose port ----
-EXPOSE 8000
+ENV PORT=8000
 
 # ---- 6. Default Command ----
-CMD ["python", "main.py"]
+CMD ["sh", "-c", "python", "main.py"]
