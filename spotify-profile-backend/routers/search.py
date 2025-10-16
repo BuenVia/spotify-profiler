@@ -34,14 +34,14 @@ async def get_token():
             raise HTTPException(status_code=response.status_code, detail=response.json())
         
         token = response.json()
-        return token
+        return token["access_token"]
 
 async def call_spotify_api(endpoint: str):
     async with httpx.AsyncClient() as client:
         token = await get_token()
         url = f"{BASE_URL}{endpoint}"
         headers = {
-            "Authorization": f"Bearer {token["access_token"]}"
+            "Authorization": f"Bearer {token}"
         }
         response = await client.get(url=url, headers=headers, timeout=20.0)
         if response.status_code != 200:
